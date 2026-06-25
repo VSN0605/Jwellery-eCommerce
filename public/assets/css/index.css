@@ -1,0 +1,46 @@
+.form-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.customerForm {
+    border: 1px solid black;
+    padding: 22px;
+    border-radius: 5px;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: right;
+    padding: 10px 0 0 0;
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.errorMsg {
+    color: red;
+    font-size: medium;
+    font-weight: 400;
+    padding: 10px;
+}
+
+.successMsg{
+    color: green;
+    font-size: medium;
+    font-weight: 400;
+    padding: 10px;
+}
+
+.actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 30%;
+}
