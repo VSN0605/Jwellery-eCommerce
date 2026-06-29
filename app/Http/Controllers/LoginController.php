@@ -37,6 +37,7 @@ class LoginController extends Controller
     }
 
     public function logout() {
+        // dd('Logout Hit');
         Session::flush();
     Session::invalidate();
     Session::regenerateToken();

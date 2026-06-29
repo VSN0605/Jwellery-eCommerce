@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
-    <title>View All Customers</title>
+    <title>View All Products</title>
 </head>
 <body>
 
@@ -24,19 +24,19 @@
     @endif
 
     <div style="display: flex; flex-direction: row; justify-content:end; padding-right: 10px;">
-        <a class="btn btn-success" href="{{ url('admin/createCustomer') }}">Create Customer</a>
+        <a class="btn btn-success" href="{{ url('admin/createProduct') }}">Add Products</a>
     </div>
 
     <div class="table-container">
-        <table id="customerTable" class="table table-striped">
+        <table id="productTable" class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Sr.No</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email Address</th>
-                    <th scope="col">Contact No.</th>
-                    <th scope="col">Address</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Product Qty</th>
+                    {{-- <th scope="col">Contact No.</th>
+                    <th scope="col">Address</th> --}}
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -44,21 +44,21 @@
                 @php
                     $sr_no = 1;
                 @endphp
-                @foreach($customers as $customer)
+                @foreach($products as $product)
                     <tr>
                         <th scope="row">{{ $sr_no++ }}</th>
-                        <td>{{ $customer->first_name }}</td>
-                        <td>{{ $customer->last_name }}</td>
-                        <td>{{ $customer->email }}</td>
-                        <td>{{ $customer->contact_no }}</td></td>
-                        <td>{{ $customer->address }}</td>
+                        <td>{{ $product->first_name }}</td>
+                        <td>{{ $product->last_name }}</td>
+                        <td>{{ $product->email }}</td>
+                        {{-- <td>{{ $customer->contact_no }}</td></td>
+                        <td>{{ $customer->address }}</td> --}}
                         <td style="display: flex; flex-direction: row; gap: 5px">
-                            <form action="{{ route('admin.customers.deleteCustomer', $customer->id) }}" method="post">
+                            <form action="{{ route('admin.customers.deleteCustomer', $product->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" onclick="confirm('Are you sure, you want to delete this entry?')">DELETE</button>
                             </form>
-                            <a href="{{ url('admin/editCustomer/' . $customer->id) }}">
+                            <a href="{{ url('admin/editCustomer/' . $product->id) }}">
                                 <button class="btn btn-success">EDIT</button>
                             </a>
                         </td>

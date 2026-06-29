@@ -16,6 +16,7 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        // dd(session()->all());
         if (!Session::has('user_id')) {
             Session::flush();
             return redirect('/');

@@ -10,13 +10,10 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('/admin/index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/createCustomer') }}">Create Customer</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('admin/customers') }}">View Customers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                        <a class="nav-link" href="{{ url('admin/products') }}">View Products</a>
                     </li>
                 </ul>
 
@@ -24,7 +21,7 @@
                     <h3>Hello {{ session('name') }}</h3>
                 </div> --}}
             </div>
-            <form action="{{ url('/') }}" method="get">
+            <form action="{{ url('logout') }}" method="get">
                 <button class="btn btn-danger">LOG OUT</button>
             </form>
         </div>
