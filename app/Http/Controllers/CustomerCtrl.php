@@ -7,12 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class CustomerCtrl extends Controller
 {
-    // function to go on create customer page
-    public function createCustomer()
-    {
-        return view('admin.createCustomer');
-    }
-
     // function to store data in customers table;
     public function saveCustomer(Request $request)
     {
@@ -36,9 +30,9 @@ class CustomerCtrl extends Controller
         $insertData = DB::table('customers')->insert($customerData);
 
         if($insertData) {
-            return redirect()->back()->with('success', 'Your data submitted successfully'); 
+            return redirect()->route('admin.customer.customers')->with('success', 'Your data submitted successfully'); 
         } else {
-            return redirect()->back()->withErrors(['msg' => 'Something went wrong while submitting form']);
+            return redirect()->route('admin.customer.customers')->withErrors(['msg' => 'Something went wrong while submitting form']);
         }
     }
 
@@ -47,15 +41,19 @@ class CustomerCtrl extends Controller
     {
         $customers = DB::table('customers')->get();
 
-        return view('admin.customers', compact('customers'));
+        return view('admin.customer.customers', compact('customers'));
     }
 
     // function to delete entry from table
     public function deleteCustomer($id)
     {
-        DB::table('customers')->where('id', $id)->delete();
+        $deleteCustomer = DB::table('customers')->where('id', $id)->delete();
 
-        return redirect()->back()->with('success', 'Customer entry deleted successfully');
+        if($deleteCustomer) {
+            return redirect()->back()->with('success', 'Customer entry deleted successfully');
+        } else {
+           return redirect()->back()->withErrors(['msg' => 'Something went wrong while deleting customer detail, please try again']); 
+        }
     }
 
     // function to edit customer
@@ -63,7 +61,7 @@ class CustomerCtrl extends Controller
     {
         $customer = DB::table('customers')->where('id', $id)->first();
 
-        return view('admin.editCustomer', compact('customer'));
+        return view('admin.customer.editCustomer', compact('customer'));
     }
 
     // function to update customer data
@@ -82,9 +80,9 @@ class CustomerCtrl extends Controller
         $updateCustomer = DB::table('customers')->where('id', $customerID)->update($updateArray);
 
         if($updateCustomer) {
-            return redirect()->back()->with('success', 'Customer details updated successfully');
+            return redirect()->route('admin.customer.customers')->with('success', 'Customer details updated successfully');
         } else {
-            return redirect()->back()->withErrors(['msg' => 'Something went wrong while updating entry, please try again']);
+            return redirect()->route('admin.customer.customers')->withErrors(['msg' => 'Something went wrong while updating entry, please try again']);
         }
     }
 }

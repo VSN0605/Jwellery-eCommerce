@@ -21,7 +21,7 @@
     @endif
 
     <div class="form-container">
-        <form action="{{ url('admin/updateCustomer') }}" method="POST" class="customerForm">
+        <form action="{{ url('admin/customer/updateCustomer') }}" method="POST" class="customerForm">
             @csrf
             <div class="mb-3">
                 <input type="hidden" name="customerID" value="{{ $customer->id }}">

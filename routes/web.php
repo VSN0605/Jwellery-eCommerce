@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\registrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CustomerCtrl;
-use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\ProductController;
 
 Route::get('/', function() {
@@ -26,18 +25,24 @@ Route::middleware(['role', 'prevent-back-history'])->group(function () {
         }
         return view('admin.index');
     });
-    Route::post('admin/index/submitData', [CustomerCtrl::class, 'saveCustomer'])->name('admin.index.submitData');
-    
+
     // customer routes
-    Route::get('admin/createCustomer', [CustomerCtrl::class, 'createCustomer'])->name('admin.createCustomer');
-    Route::get('admin/customers', [CustomerCtrl::class, 'viewCustomers'])->name('admin.customers');
+    Route::get('admin/customer/createCustomer', function() {
+        return view('admin.customer.createCustomer');
+    });
+    Route::get('admin/customer/createCustomer', [CustomerCtrl::class, 'createCustomer'])->name('admin.customer.createCustomer');
+    Route::get('admin/customer/customers', [CustomerCtrl::class, 'viewCustomers'])->name('admin.customer.customers');
     Route::delete('admin/customers/deleteCustomer/{id}', [CustomerCtrl::class, 'deleteCustomer'])->name('admin.customers.deleteCustomer');
-    Route::get('admin/editCustomer/{id}', [CustomerCtrl::class, 'editCustomer'])->name('admin.editCustomer');
-    Route::post('admin/updateCustomer', [CustomerCtrl::class, 'updateCustomer'])->name('admin.updateCustomer');
+    Route::get('admin/customer/editCustomer/{id}', [CustomerCtrl::class, 'editCustomer'])->name('admin.customer.editCustomer');
+    Route::post('admin/customer/updateCustomer', [CustomerCtrl::class, 'updateCustomer'])->name('admin.customer.updateCustomer');
     
     // products routes
-    Route::get('admin/products', [ProductController::class, 'viewProducts'])->name('admin.products');
-    Route::get('admin/createProduct', function() {
-        return view('admin.createProduct');
+    Route::get('admin/product/products', [ProductController::class, 'viewProducts'])->name('admin.product.products');
+    Route::get('admin/product/createProduct', function() {
+        return view('admin.product.createProduct');
     });
+    Route::post('admin/product/saveProduct', [ProductController::class, 'saveProduct'])->name('admin.product.saveProduct');
+    Route::get('admin/product/editProduct/{id}', [ProductController::class, 'editProduct'])->name('admin.product.editProduct');
+    Route::post('admin/product/updateProduct', [ProductController::class, 'updateProduct'])->name('admin.product.updateProduct');
+    Route::delete('admin/product/deleteProduct/{id}', [ProductController::class, 'deleteProduct'])->name('admin.product.deleteProduct');
 });

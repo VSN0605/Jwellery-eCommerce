@@ -24,7 +24,7 @@
     @endif
 
     <div style="display: flex; flex-direction: row; justify-content:end; padding-right: 10px;">
-        <a class="btn btn-success" href="{{ url('admin/createCustomer') }}">Create Customer</a>
+        <a class="btn btn-success" href="{{ url('admin/customer/createCustomer') }}">Create Customer</a>
     </div>
 
     <div class="table-container">
@@ -58,7 +58,7 @@
                                 @method('DELETE')
                                 <button class="btn btn-danger" onclick="confirm('Are you sure, you want to delete this entry?')">DELETE</button>
                             </form>
-                            <a href="{{ url('admin/editCustomer/' . $customer->id) }}">
+                            <a href="{{ url('admin/customer/editCustomer/' . $customer->id) }}">
                                 <button class="btn btn-success">EDIT</button>
                             </a>
                         </td>

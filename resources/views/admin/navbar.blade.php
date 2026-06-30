@@ -10,10 +10,10 @@
                         <a class="nav-link active" aria-current="page" href="{{ url('/admin/index') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/customers') }}">View Customers</a>
+                        <a class="nav-link" href="{{ url('admin/customer/customers') }}">View Customers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/products') }}">View Products</a>
+                        <a class="nav-link" href="{{ url('admin/product/products') }}">View Products</a>
                     </li>
                 </ul>
 

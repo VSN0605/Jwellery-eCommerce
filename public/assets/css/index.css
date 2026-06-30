@@ -44,3 +44,7 @@
     justify-content: space-around;
     width: 30%;
 }
+
+.table-container{
+    padding: 0 15px 0 15px;
+}
