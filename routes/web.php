@@ -5,6 +5,7 @@ use App\Http\Controllers\registrationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CustomerCtrl;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BillingCtrl;
 
 Route::get('/', function() {
     return view('index');
@@ -45,4 +46,10 @@ Route::middleware(['role', 'prevent-back-history'])->group(function () {
     Route::get('admin/product/editProduct/{id}', [ProductController::class, 'editProduct'])->name('admin.product.editProduct');
     Route::post('admin/product/updateProduct', [ProductController::class, 'updateProduct'])->name('admin.product.updateProduct');
     Route::delete('admin/product/deleteProduct/{id}', [ProductController::class, 'deleteProduct'])->name('admin.product.deleteProduct');
+
+    // Billings Routes
+    Route::get('admin/billing/billing', [BillingCtrl::class, 'viewBillings'])->name('admin.billing.billing');
+    Route::get('admin/billing/createBill', function() {
+        return view('admin.billing.createBill');
+    });
 });

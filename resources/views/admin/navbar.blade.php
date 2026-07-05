@@ -15,6 +15,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('admin/product/products') }}">View Products</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/billing/billing') }}">View Bills</a>
+                    </li>
                 </ul>
 
                 {{-- <div class="actions">
