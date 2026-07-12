@@ -24,7 +24,7 @@
     @endif
 
     <div style="display: flex; flex-direction: row; justify-content:end; padding-right: 10px;">
-        <a class="btn btn-success" href="{{ url('admin/customer/createCustomer') }}">Create Bill</a>
+        <a class="btn btn-success" href="{{ url('admin/billing/createBill') }}">Create Invoice</a>
     </div>
 
     <div class="table-container">
@@ -38,23 +38,47 @@
                     <th scope="col">Products</th>
                     <th scope="col">Product Qty</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Discount</th>
                     <th scope="col">GST</th>
                     <th scope="col">Total Price</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @php
                     $sr_no = 1;
                 @endphp
-                @foreach($billings as $billing)
+                @foreach($billings as $billing)  
+                    @php
+                        $productQtyArray = DB::table('billing')->where('id', $billing->id)->first();
+                        $productQty = unserialize($productQtyArray->product_qty);
+
+                        $allProducts = unserialize($billing->purchase_product);
+
+                        $productNames = [];
+                        $productPrices = [];
+
+                        foreach ($allProducts as $productId) {
+                            $product = DB::table('products')
+                                ->where('id', $productId)
+                                ->first();
+
+                            if ($product) {
+                                $productNames[] = $product->product_name;
+                                $productPrices[] = $product->product_price;
+                            }
+                        }
+
+                    @endphp
                     <tr>
                         <th scope="row">{{ $sr_no++ }}</th>
                         <td>{{ $billing->customer_name }}</td>
                         <td>{{ $billing->contact_no }}</td>
                         <td>{{ $billing->address }}</td>
-                        <td>{{ $billing->purchase_product }}</td></td>
-                        <td>{{ $billing->product_qty }}</td>
-                        <td>{{ $billing->product_price }}</td>
+                        <td>{{ implode(', ', $productNames) }}</td></td>
+                        <td>{{ implode(', ', $productQty) }}</td>
+                        <td>{{ implode(', ', $productPrices) }}</td>
+                        <td>{{ $billing->discount }}</td>
                         <td>{{ $billing->gst }}</td>
                         <td>{{ $billing->total_price }}</td>
                         <td style="display: flex; flex-direction: row; gap: 5px">
@@ -65,6 +89,9 @@
                             </form>
                             <a href="{{ url('admin/customer/editCustomer/' . $billing->id) }}">
                                 <button class="btn btn-success">EDIT</button>
+                            </a>
+                            <a target="_blank" href="{{ url('admin/billing/printInvoice/' . $billing->id) }}">
+                                <button class="btn btn-primary">VIEW INVOICE</button>
                             </a>
                         </td>
                     </tr>

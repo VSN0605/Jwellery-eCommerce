@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('billing', function (Blueprint $table) {
             $table->id();
             $table->string('customer_name');
-            $table->integer('contact_no');
+            $table->string('contact_no' ,15);
             $table->string('address');
             $table->string('purchase_product');
-            $table->smallInteger('product_qty');
-            $table->smallInteger('product_price');
+            $table->string('product_qty', 150);
+            $table->string('product_price', 150);
             $table->smallInteger('gst');
             $table->smallInteger('total_price');
             $table->timestamps();

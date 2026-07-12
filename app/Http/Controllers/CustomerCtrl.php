@@ -13,7 +13,7 @@ class CustomerCtrl extends Controller
         $request->validate([
             'first_name' => 'required|string|max:20',
             'last_name' => 'required|string|max:20',
-            'custom_email' => 'required|string|max:30',
+            // 'custom_email' => 'required|string|max:30',
             'contact_num' => 'required|digits:10',
             'address' => 'required|string|max:200'
         ]);

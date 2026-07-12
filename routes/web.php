@@ -49,7 +49,7 @@ Route::middleware(['role', 'prevent-back-history'])->group(function () {
 
     // Billings Routes
     Route::get('admin/billing/billing', [BillingCtrl::class, 'viewBillings'])->name('admin.billing.billing');
-    Route::get('admin/billing/createBill', function() {
-        return view('admin.billing.createBill');
-    });
+    Route::get('admin/billing/createBill', [BillingCtrl::class, 'getProducts'])->name('admin.billing.createBill');
+    Route::post('admin/billing/submitBill', [BillingCtrl::class, 'submitBillingData'])->name('admin.billing.submitBill');
+    Route::get('admin/billing/printInvoice/{id}', [BillingCtrl::class, 'getInvoice'])->name('admin.billing.printInvoice');
 });
