@@ -11,6 +11,10 @@
     border-radius: 5px;
 }
 
+.form-label {
+    font-weight: bold;
+}
+
 .btn-container {
     display: flex;
     justify-content: right;
@@ -47,4 +51,11 @@
 
 .table-container{
     padding: 0 15px 0 15px;
+}
+
+.inputFieldContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
 }

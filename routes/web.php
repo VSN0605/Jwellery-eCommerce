@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CustomerCtrl;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BillingCtrl;
+use App\Http\Controllers\DashboardCtrl;
 
 Route::get('/', function() {
     return view('index');
@@ -20,18 +21,20 @@ Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware(['role', 'prevent-back-history'])->group(function () {
-    Route::get('/admin/index', function() {
-        if(!session()->has('user_id')) {
-            return view('index');
-        }
-        return view('admin.index');
-    });
+    // Route::get('/admin/index', function() {
+    //     if(!session()->has('user_id')) {
+    //         return view('index');
+    //     }
+    //     return view('admin.index');
+    // });
+    // Dashboard route
+    Route::get('admin/index', [DashboardCtrl::class, 'viewDashboard'])->name('admin.index');
 
     // customer routes
     Route::get('admin/customer/createCustomer', function() {
         return view('admin.customer.createCustomer');
     });
-    Route::get('admin/customer/createCustomer', [CustomerCtrl::class, 'createCustomer'])->name('admin.customer.createCustomer');
+    Route::get('admin/customer/saveCustomer', [CustomerCtrl::class, 'saveCustomer'])->name('admin.customer.saveCustomer');
     Route::get('admin/customer/customers', [CustomerCtrl::class, 'viewCustomers'])->name('admin.customer.customers');
     Route::delete('admin/customers/deleteCustomer/{id}', [CustomerCtrl::class, 'deleteCustomer'])->name('admin.customers.deleteCustomer');
     Route::get('admin/customer/editCustomer/{id}', [CustomerCtrl::class, 'editCustomer'])->name('admin.customer.editCustomer');
@@ -52,4 +55,5 @@ Route::middleware(['role', 'prevent-back-history'])->group(function () {
     Route::get('admin/billing/createBill', [BillingCtrl::class, 'getProducts'])->name('admin.billing.createBill');
     Route::post('admin/billing/submitBill', [BillingCtrl::class, 'submitBillingData'])->name('admin.billing.submitBill');
     Route::get('admin/billing/printInvoice/{id}', [BillingCtrl::class, 'getInvoice'])->name('admin.billing.printInvoice');
+    Route::delete('admin/billing/deleteInvoice/{id}', [BillingCtrl::class, 'deleteInvoice'])->name('admin.billing.deleteInvoice');
 });

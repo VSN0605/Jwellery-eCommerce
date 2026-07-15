@@ -15,10 +15,10 @@
     <div class="row">
 
         <div class="col-md-6">
-            <h2 class="company-name">Your Company Name</h2>
+            <h2 class="company-name">Yashwant Jwellers</h2>
             <p>
-                Nagpur, Maharashtra<br>
-                Mobile : 9876543210<br>
+                Opp. Bus-Stand Main Road Jalalkheda, Narkhed, Nagpur Maharashtra<br>
+                Mobile : 9823879963<br>
                 Email : info@company.com
             </p>
         </div>
@@ -27,7 +27,7 @@
             <h1 class="invoice-title">INVOICE</h1>
 
             <p>
-                <strong>Invoice No :</strong> INV-YJ-00001 <br>
+                <strong>Invoice No :</strong> INV-YJ-{{ date('dmY') }}{{random_int(100, 999)}} <br>
                 <strong>Date :</strong> {{ date('d-m-Y') }}
             </p>
         </div>
@@ -75,33 +75,38 @@
 
         <tbody>
 
-        <tr>
+            @php
+                $productIds = unserialize($invoiceData->purchase_product);
+                $qtys = unserialize($invoiceData->product_qty);
+                $prices = unserialize($invoiceData->product_price);
 
-            <td>1</td>
+                $srNo = 1;
+            @endphp
 
-            <td>Laptop</td>
+            @foreach($productIds as $productId)
 
-            <td>2</td>
+                @php
+                    $product = DB::table('products')->where('id', $productId)->first();
 
-            <td>₹50000</td>
+                    $qty = $qtys[$productId] ?? 0;
+                    $price = $prices[$productId] ?? 0;
 
-            <td>₹100000</td>
+                    $amount = $qty * $price;
+                @endphp
 
-        </tr>
+                <tr>
+                    <td>{{ $srNo++ }}</td>
 
-        <tr>
+                    <td>{{ $product->product_name ?? '-' }}</td>
 
-            <td>2</td>
+                    <td>{{ $qty }}</td>
 
-            <td>Mouse</td>
+                    <td>₹{{ number_format($price, 2) }}</td>
 
-            <td>3</td>
+                    <td>₹{{ number_format($amount, 2) }}</td>
+                </tr>
 
-            <td>₹500</td>
-
-            <td>₹1500</td>
-
-        </tr>
+            @endforeach
 
         </tbody>
 
@@ -143,12 +148,12 @@
                     $gstAmount = ($amountAfterDiscount * $invoiceData->gst) / 100;
                 @endphp
                 <th>GST ({{ $invoiceData->gst }}%)</th>
-                <td>₹{{ $gstAmount }}</td>
+                <td>₹ {{ $gstAmount }}</td>
             </tr>
 
             <tr class="table-primary">
                 <th>Grand Total</th>
-                <th>₹{{ $invoiceData->total_price }}</th>
+                <th>₹ {{ $invoiceData->total_price }}</th>
             </tr>
 
         </table>

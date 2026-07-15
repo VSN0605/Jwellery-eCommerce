@@ -82,7 +82,7 @@
                         <td>{{ $billing->gst }}</td>
                         <td>{{ $billing->total_price }}</td>
                         <td style="display: flex; flex-direction: row; gap: 5px">
-                            <form action="{{ route('admin.customers.deleteCustomer', $billing->id) }}" method="post">
+                            <form action="{{ route('admin.billing.deleteInvoice', $billing->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger" onclick="confirm('Are you sure, you want to delete this entry?')">DELETE</button>

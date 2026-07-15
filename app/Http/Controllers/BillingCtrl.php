@@ -100,4 +100,15 @@ class BillingCtrl extends Controller
 
         return view('admin.billing.printInvoice', compact('invoiceData'));
     }
+
+    public function deleteInvoice($id)
+    {
+        $deleteInvoice = DB::table('billing')->where('id', $id)->delete();
+
+        if($deleteInvoice) {
+            return redirect()->back()->with('success', 'Invoice Deleted successfully');
+        } else {
+            return redirect()->back()->withErrors(['msg' => 'Something went wrong while deleting Invoice']);
+        }
+    }
 }
