@@ -30,7 +30,8 @@
                 </div>
                 <div class="mb-3" style="width: 100%">
                     <label class="form-label" for="selectProductType">Select Product Type</label>
-                    <select class="form-control" id="selectProductType" name="selectProductType">
+                    <select class="form-control" id="selectProductType" name="productType">
+                            <option selected>Select Product Type</option>
                             <option value="gold">Gold</option>
                             <option value="silver">Silver</option>
                     </select>
@@ -49,7 +50,7 @@
             <div class="inputFieldContainer">
                 <div class="mb-3" style="width: 100%">
                     <label for="productWeight" class="form-label">Product Weight</label>
-                    <input class="form-control" name="productWeight" type="number" id="productWeight">
+                    <input class="form-control" step="0.01" name="productWeight" type="number" id="productWeight">
                 </div>
                 <div class="mb-3" style="width: 100%">
                     <label for="productPrice" class="form-label">Product Price</label>
@@ -65,19 +66,23 @@
                     <label for="holeMarkCharges" class="form-label">Hole Mark Charges</label>
                     <input class="form-control" name="holeMarkCharges" type="number" id="holeMarkCharges">
                 </div>
+            </div>
+            <div class="inputFieldContainer">
                 <div class="mb-3" style="width: 100%">
                     <label for="productQty" class="form-label">Product Qty</label>
                     <input class="form-control" name="product_qty" type="number" id="productQty">
                 </div>
-            </div>
-            {{-- <div class="inputFieldContainer"> --}}
                 <div class="mb-3" style="width: 100%">
-                    <label for="productDesc" class="form-label">Product Description</label>
-                    <textarea class="form-control" name="product_description" id="productDesc" cols="50" rows="2"></textarea>
+                    <label for="productPurity" class="form-label">Purity</label>
+                    <input class="form-control" step="0.01" name="purity" type="number" id="productPurity">
                 </div>
-            {{-- </div> --}}
+            </div>
             <div class="btn-container">
                 <button class="btn btn-success" id="formSubmit">SUBMIT</button>
+                <a class="btn btn-danger" href="{{ route('admin.product.products') }}">
+                    CANCEL
+                </a>
+                <button class="btn btn-primary" type="reset">CLEAR</button>
             </div>
         </form>
     </div>

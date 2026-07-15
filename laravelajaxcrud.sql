@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2026 at 12:01 PM
+-- Generation Time: Jul 15, 2026 at 05:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Database: `laravelajaxcrud`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `billing`
+--
+
+CREATE TABLE `billing` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `customer_name` varchar(255) NOT NULL,
+  `contact_no` varchar(15) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `purchase_product` varchar(255) NOT NULL,
+  `product_qty` varchar(150) NOT NULL,
+  `product_price` varchar(150) NOT NULL,
+  `subtotal` int(11) NOT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `gst` smallint(6) NOT NULL,
+  `total_price` smallint(6) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `billing`
+--
+
+INSERT INTO `billing` (`id`, `customer_name`, `contact_no`, `address`, `purchase_product`, `product_qty`, `product_price`, `subtotal`, `discount`, `gst`, `total_price`, `created_at`, `updated_at`) VALUES
+(1, 'Vaibhav Nanotkar', '9307658758', 'Jalalkheda', 'a:2:{i:0;s:1:\"2\";i:1;s:1:\"3\";}', 'a:2:{i:2;s:1:\"1\";i:3;s:1:\"1\";}', 'a:2:{i:2;s:4:\"5000\";i:3;s:3:\"256\";}', 5256, 12, 18, 5458, '2026-07-11 03:35:35', '2026-07-11 03:35:35'),
+(2, 'Yogesh Nanotkar', '9822689407', 'At Post Jalalkheda, Tq: Narkhed', 'a:1:{i:0;s:1:\"2\";}', 'a:1:{i:2;s:1:\"1\";}', 'a:1:{i:2;s:4:\"5000\";}', 5000, 5, 18, 5605, '2026-07-12 02:04:03', '2026-07-12 02:04:03'),
+(4, 'Testing', '8856365425', 'Jalalkheda', 'a:2:{i:0;s:1:\"2\";i:1;s:1:\"3\";}', 'a:2:{i:2;s:1:\"1\";i:3;s:1:\"2\";}', 'a:2:{i:2;s:4:\"5000\";i:3;s:3:\"256\";}', 5512, 12, 3, 4996, '2026-07-14 08:55:19', '2026-07-14 08:55:19');
 
 -- --------------------------------------------------------
 
@@ -69,8 +100,9 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `first_name`, `last_name`, `email`, `email_verified_at`, `contact_no`, `address`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'sjgjsdg', 'Nanotkar', 'vainano123@gmail.com', NULL, '9307658758', 'at Post Jalalkheda Tq Narkhed Dist Nagpur', NULL, '2025-09-26 07:03:43', NULL),
-(4, 'Vaibhav', 'Nanotkar', 'vaibhav123@gmail.com', NULL, '9307658758', 'AT Post Jalalkheda, Tq Narkhed Dist Nagpur', NULL, '2026-06-22 01:58:48', NULL);
+(1, 'Test', 'Customer', 'vainano123@gmail.com', NULL, '9307658758', 'at Post Jalalkheda Tq Narkhed Dist Nagpur', NULL, '2025-09-26 07:03:43', NULL),
+(5, 'Yogesh', 'Nanotkar', 'yogesh123@gmail.com', NULL, '9822689404', 'At Post Jalalkheda', NULL, '2026-06-30 04:38:13', NULL),
+(6, 'Yogesh', 'Nanotkar', '', NULL, '9822689407', 'At Post Jalalkheda, Tq: Narkhed', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -143,7 +175,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
-(4, '2025_09_26_075758_create_customers_table', 2);
+(4, '2025_09_26_075758_create_customers_table', 2),
+(5, '2026_06_29_053435_create_products_table', 3),
+(6, '2026_06_29_103017_add_product_description_to_proudcts_table', 4),
+(7, '2026_06_30_113234_create_billing_table', 5),
+(8, '2026_07_07_141004_add_discount_to_billing_table', 6),
+(9, '2026_07_12_081029_add_subtotal_to_billing_table', 7),
+(10, '2026_07_15_103603_add_new_fields_to_product_table', 8);
 
 -- --------------------------------------------------------
 
@@ -156,6 +194,36 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `product_number` int(11) NOT NULL,
+  `nsh_code` int(11) NOT NULL,
+  `product_weight` decimal(10,2) NOT NULL,
+  `item_type` varchar(255) NOT NULL,
+  `purity` decimal(10,2) NOT NULL,
+  `product_price` varchar(255) NOT NULL,
+  `making_charge` int(11) NOT NULL,
+  `hole_mark_charge` int(11) NOT NULL,
+  `product_qty` smallint(6) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `product_name`, `product_number`, `nsh_code`, `product_weight`, `item_type`, `purity`, `product_price`, `making_charge`, `hole_mark_charge`, `product_qty`, `created_at`, `updated_at`) VALUES
+(1, 'Ring', 125478, 2563, 55.20, 'gold', 24.00, '4000', 100, 80, 2, '2026-07-15 08:58:18', NULL),
+(2, 'Kada', 5879, 25446, 120.00, 'silver', 18.00, '3000', 120, 70, 1, '2026-07-15 09:08:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -177,9 +245,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('bIzvKxoizXm7NCxYCtFNa399pLjAWmPsX1R3PfvZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo3OntzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2NyZWF0ZUN1c3RvbWVyIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJfdG9rZW4iO3M6NDA6Im5NS1h0S3FYNnBac0hPV0lsaUJUZ0daRkl2WU9ldTBpaURIcksyZGoiO3M6NzoidXNlcl9pZCI7aTo2O3M6MTA6InVzZXJfZW1haWwiO3M6MjA6InZhaW5hbm8xMjNAZ21haWwuY29tIjtzOjQ6Im5hbWUiO3M6NzoiVmFpYmhhdiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2NyZWF0ZUN1c3RvbWVyIjt9fQ==', 1782223800),
-('cGfHkf7ARR71cntKSVSMmSzPh1lzCIITfaSxqqS5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTozOntzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2VkaXRDdXN0b21lci8xIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo2OiJfdG9rZW4iO3M6NDA6ImtacjBLM0NVNFBpUmhVTnQzbE9lNUFGQ2lLbW9zUk9YdlpPc01NdXkiO30=', 1782114591),
-('v33AhVDkPcJro0txEgnBwoeMHKcp11jdG2zZqP7h', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiaGF6bEVsNFhQejB2TGxTZXhObVlVb1ZrUFJTRGRtV1JBdENpWW4wSyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9jcmVhdGVDdXN0b21lciI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NzoidXNlcl9pZCI7aTo2O3M6MTA6InVzZXJfZW1haWwiO3M6MjA6InZhaW5hbm8xMjNAZ21haWwuY29tIjtzOjQ6Im5hbWUiO3M6NzoiVmFpYmhhdiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2NyZWF0ZUN1c3RvbWVyIjt9fQ==', 1782281077);
+('Cv1dySuqgBTp3A9z0bzE2cRFF4JzR5yhQjDzkz0G', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36', 'YTo2OntzOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czo0NDoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL3Byb2R1Y3QvcHJvZHVjdHMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiTmRRZ210NGUzQzAzcERzekV1UUpUZFpoWUIxOGZnWnNVVFl6MkpNaSI7czo3OiJ1c2VyX2lkIjtpOjY7czoxMDoidXNlcl9lbWFpbCI7czoyMDoidmFpbmFubzEyM0BnbWFpbC5jb20iO3M6NDoibmFtZSI7czo3OiJWYWliaGF2Ijt9', 1784127878);
 
 -- --------------------------------------------------------
 
@@ -211,6 +277,12 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `email_verified_a
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `billing`
+--
+ALTER TABLE `billing`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cache`
@@ -264,6 +336,12 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
@@ -283,10 +361,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `billing`
+--
+ALTER TABLE `billing`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -304,7 +388,13 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`

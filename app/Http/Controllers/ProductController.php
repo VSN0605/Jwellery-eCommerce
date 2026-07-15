@@ -20,16 +20,28 @@ class ProductController extends Controller
     {
         $request->validate([
             'product_name' => 'required|string|max:50',
+            'productType' => 'required',
+            'product_number' => 'required',
+            'nshCode' => 'required',
+            'productWeight' => 'required',
+            'purity' => 'required',
             'product_price' => 'required',
+            'makingCharges' => 'required',
+            'holeMarkCharges' => 'required',
             'product_qty' => 'required',
-            'product_description' => 'required|string|max:200'
         ]);
 
         $productData = [
             'product_name' => $request->product_name,
+            'item_type' => $request->productType,
+            'product_number' => $request->product_number,
+            'nsh_code' => $request->nshCode,
+            'product_weight' => $request->productWeight,
+            'purity' => $request->purity,
             'product_price' => $request->product_price,
+            'making_charge' => $request->makingCharges,
+            'hole_mark_charge' => $request->holeMarkCharges,
             'product_qty' => $request->product_qty,
-            'product_description' => $request->product_description,
             'created_at' => now(),
         ];
 
@@ -57,9 +69,15 @@ class ProductController extends Controller
 
         $updateArray = [
             'product_name' => $request->product_name,
+            'item_type' => $request->productType,
+            'product_number' => $request->product_number,
+            'nsh_code' => $request->nshCode,
+            'product_weight' => $request->productWeight,
             'product_price' => $request->product_price,
+            'making_charge' => $request->makingCharges,
+            'hole_mark_charge' => $request->holeMarkCharges,
             'product_qty' => $request->product_qty,
-            'product_description' => $request->product_desc,
+            'purity' => $request->purity
         ];
 
         $updateProduct = DB::table('products')->where('id', $productId)->update($updateArray);

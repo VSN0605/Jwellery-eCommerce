@@ -33,9 +33,15 @@
                 <tr>
                     <th scope="col">Sr.No</th>
                     <th scope="col">Product Name</th>
-                    <th scope="col">Product Price</th>
+                    <th scope="col">Product Type</th>
+                    <th scope="col">Product Number</th>
+                    <th scope="col">NSH Code</th>
                     <th scope="col">Product Qty</th>
-                    <th scope="col">Product Description</th>
+                    <th scope="col">Product Weight</th>
+                    <th scope="col">Purity</th>
+                    <th scope="col">Product Price</th>
+                    <th scope="col">Making Charge</th>
+                    <th scope="col">Hole Mark Charge</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -43,25 +49,37 @@
                 @php
                     $sr_no = 1;
                 @endphp
-                @foreach($products as $product)
+                @if (count($products) > 0)
+                    @foreach($products as $product)
+                        <tr>
+                            <th scope="row">{{ $sr_no++ }}</th>
+                            <td>{{ $product->product_name }}</td>
+                            <td>{{ ucfirst($product->item_type) }}</td>
+                            <td>{{ $product->product_number }}</td>
+                            <td>{{ $product->nsh_code }}</td>
+                            <td>{{ $product->product_qty }}</td>
+                            <td>{{ $product->product_weight }}</td>
+                            <td>{{ $product->purity }} Carrot</td>
+                            <td>{{ $product->product_price }}</td>
+                            <td>{{ $product->making_charge }}</td>
+                            <td>{{ $product->hole_mark_charge }}</td>
+                            <td style="display: flex; flex-direction: row; gap: 5px">
+                                <form action="{{ route('admin.product.deleteProduct', $product->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger" onclick="confirm('Are you sure, you want to delete this entry?')">DELETE</button>
+                                </form>
+                                <a href="{{ url('admin/product/editProduct/' . $product->id) }}">
+                                    <button class="btn btn-success">EDIT</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
-                        <th scope="row">{{ $sr_no++ }}</th>
-                        <td>{{ $product->product_name }}</td>
-                        <td>{{ $product->product_price }}</td>
-                        <td>{{ $product->product_qty }}</td>
-                        <td>{{ $product->product_description }}</td>
-                        <td style="display: flex; flex-direction: row; gap: 5px">
-                            <form action="{{ route('admin.product.deleteProduct', $product->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" onclick="confirm('Are you sure, you want to delete this entry?')">DELETE</button>
-                            </form>
-                            <a href="{{ url('admin/product/editProduct/' . $product->id) }}">
-                                <button class="btn btn-success">EDIT</button>
-                            </a>
-                        </td>
+                        <th colspan="12" style="text-align: center" scope="row">No Data Available in Products</th>
                     </tr>
-                @endforeach
+                @endif
             </tbody>
         </table>
     </div>
